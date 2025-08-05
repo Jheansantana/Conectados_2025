@@ -9,56 +9,91 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Teste 1 de flutter',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 209, 12, 12)),
-      ),
-      home: const MyHomePage(title: 'Teste do flutter'),
+    return const MaterialApp(
+      debugShowMaterialGrid: false,
+      title: 'Calculadora Simples',
+      home: Calculadora(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+class Calculadora extends StatefulWidget {
+  const Calculadora({super.key});
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  CalculadoraState createState() => CalculadoraState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+class CalculadoraState extends State<Calculadora> {
+  final TextEditingController n1 = TextEditingController();
+  final TextEditingController n2 = TextEditingController();
+  String resultado = '';
 
-  void _incrementCounter() {
+  void somar() {
+    double a = double.parse(n1.text);
+    double b = double.parse(n2.text);
     setState(() {
-    _counter += 2;
+      resultado = 'Resultado: ${a + b}';
+    });
+  }
+
+  void subtrair() {
+    double a = double.parse(n1.text);
+    double b = double.parse(n2.text);
+    setState(() {
+      resultado = 'Resultado: ${a - b}';
+    });
+  }
+
+  void multiplicar() {
+    double a = double.parse(n1.text);
+    double b = double.parse(n2.text);
+    setState(() {
+      resultado = 'Resultado: ${a * b}';
+    });
+  }
+
+  void dividir() {
+    double a = double.parse(n1.text);
+    double b = double.parse(n2.text);
+    setState(() {
+      resultado = b != 0 ? 'Resultado: ${a / b}' : 'Erro: divisão por zero';
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
+      appBar: AppBar(title: const Text('Calculadora')),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('Você precionou o botão muitas vezes:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+          children: [
+            TextField(
+              controller: n1,
+              decoration: const InputDecoration(labelText: 'Número 1'),
+              keyboardType: TextInputType.number,
             ),
+            TextField(
+              controller: n2,
+              decoration: const InputDecoration(labelText: 'Número 2'),
+              keyboardType: TextInputType.number,
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(onPressed: somar, child: const Text('+')),
+                ElevatedButton(onPressed: subtrair, child: const Text('-')),
+                ElevatedButton(onPressed: multiplicar, child: const Text('×')),
+                ElevatedButton(onPressed: dividir, child: const Text('÷')),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Text(resultado, style: const TextStyle(fontSize: 20)),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
