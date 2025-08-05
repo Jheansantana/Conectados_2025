@@ -1,48 +1,35 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MaterialApp(
-    home: PerfilPage(),
-    debugShowCheckedModeBanner: false,
-  ));
-}
+void main() => runApp(const MyApp());
 
-class PerfilPage extends StatelessWidget {
-  const PerfilPage({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 22, 232, 255),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const CircleAvatar(
-                radius: 60,
-                backgroundImage: AssetImage('assets/perfil.jpeg'),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Jhean Santana',
-                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
-              ),
-              const Text(
-                'Estudante e Desenvolvedor Flutter',
-                style: TextStyle(fontSize: 18, color: Colors.grey),
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                'Teste de app flutter',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 16),
-              ),
-            ],
-          ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        body: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            coluna(Icons.home, 'Início', 'Página principal'),
+            coluna(Icons.star, 'Favoritos', 'Itens salvos'),
+            coluna(Icons.settings, 'Config', 'Preferências'),
+          ],
         ),
       ),
+    );
+  }
+
+  Widget coluna(IconData icone, String titulo, String desc) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(icone, size: 30),
+        Text(titulo),
+        Text(desc, style: const TextStyle(color: Color.fromARGB(255, 61, 18, 189))),
+      ],
     );
   }
 }
