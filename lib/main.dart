@@ -1,98 +1,46 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const MaterialApp(
+    home: PerfilPage(),
+    debugShowCheckedModeBanner: false,
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowMaterialGrid: false,
-      title: 'Calculadora Simples',
-      home: Calculadora(),
-      debugShowCheckedModeBanner: false,
-    );
-  }
-}
-
-class Calculadora extends StatefulWidget {
-  const Calculadora({super.key});
-
-  @override
-  CalculadoraState createState() => CalculadoraState();
-}
-
-class CalculadoraState extends State<Calculadora> {
-  final TextEditingController n1 = TextEditingController();
-  final TextEditingController n2 = TextEditingController();
-  String resultado = '';
-
-  void somar() {
-    double a = double.parse(n1.text);
-    double b = double.parse(n2.text);
-    setState(() {
-      resultado = 'Resultado: ${a + b}';
-    });
-  }
-
-  void subtrair() {
-    double a = double.parse(n1.text);
-    double b = double.parse(n2.text);
-    setState(() {
-      resultado = 'Resultado: ${a - b}';
-    });
-  }
-
-  void multiplicar() {
-    double a = double.parse(n1.text);
-    double b = double.parse(n2.text);
-    setState(() {
-      resultado = 'Resultado: ${a * b}';
-    });
-  }
-
-  void dividir() {
-    double a = double.parse(n1.text);
-    double b = double.parse(n2.text);
-    setState(() {
-      resultado = b != 0 ? 'Resultado: ${a / b}' : 'Erro: divisão por zero';
-    });
-  }
+class PerfilPage extends StatelessWidget {
+  const PerfilPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Calculadora')),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            TextField(
-              controller: n1,
-              decoration: const InputDecoration(labelText: 'Número 1'),
-              keyboardType: TextInputType.number,
-            ),
-            TextField(
-              controller: n2,
-              decoration: const InputDecoration(labelText: 'Número 2'),
-              keyboardType: TextInputType.number,
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(onPressed: somar, child: const Text('+')),
-                ElevatedButton(onPressed: subtrair, child: const Text('-')),
-                ElevatedButton(onPressed: multiplicar, child: const Text('×')),
-                ElevatedButton(onPressed: dividir, child: const Text('÷')),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Text(resultado, style: const TextStyle(fontSize: 20)),
-          ],
+      backgroundColor: const Color.fromARGB(255, 22, 232, 255),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const CircleAvatar(
+                radius: 60,
+                backgroundImage: AssetImage('assets/perfil.jpeg'),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Jhean Santana',
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              ),
+              const Text(
+                'Estudante e Desenvolvedor Flutter',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+              const SizedBox(height: 20),
+              const Text(
+                'Teste de app flutter',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         ),
       ),
     );
